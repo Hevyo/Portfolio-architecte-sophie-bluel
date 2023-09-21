@@ -1,5 +1,6 @@
 const works = await fetch("http://localhost:5678/api/works").then(works => works.json())
 const category = await fetch ("http://localhost:5678/api/categories").then(category => category.json())
+const DEFAULT_CATEGORY = "Tous";
 
 function displayWorks(works) {
     for (let i=0; i < works.length; i++) {
@@ -22,36 +23,41 @@ function displayWorks(works) {
 
 displayWorks(works)
 
+function createButton(text, divFilter) {
+    const buttonDefault = document.createElement("button");
+    buttonDefault.innerText = text;
+    buttonDefault.className = "filterStyle";
+    divFilter.appendChild(buttonDefault);
+
+    buttonDefault.addEventListener("click", function (event) {
+        const btnClicked = event.target;
+        let filterWorks = works;
+        if (DEFAULT_CATEGORY !== text) {
+            filterWorks = works.filter(function (works) {
+                return works.category.name === text
+            })
+        }
+
+        document.querySelector(".gallery").innerHTML = ""
+        displayWorks(filterWorks);
+        document.querySelectorAll('.filterStyle').forEach((btn) => {
+            btn.classList.remove('active');
+        });
+        btnClicked.classList.add('active');
+    });
+}
+
 function displayFilters(category) {
 
     const divFilter =  document.querySelector(".filters")
-    const buttonDefault = document.createElement("button")
-    buttonDefault.innerText = "Tous"
-    buttonDefault.className = "filterStyle"
-    divFilter.appendChild(buttonDefault)
-
-    buttonDefault.addEventListener("click", function (){
-        document.querySelector(".gallery").innerHTML = ""
-        displayWorks(works)
-        })
+    createButton(DEFAULT_CATEGORY, divFilter);
     
     for (let i=0; i < category.length; i++) {
 
         const categoryElement = category[i]
         console.log(category[i])
 
-        const buttonFilter = document.createElement("button")
-        buttonFilter.innerText = categoryElement.name
-        divFilter.appendChild(buttonFilter)
-        buttonFilter.className = "filterStyle"
-
-        buttonFilter.addEventListener("click", function (){
-            const filteredWorks = works.filter(function (works) {
-                return works.category.name === category[i].name
-            })
-        document.querySelector(".gallery").innerHTML = ""
-        displayWorks(filteredWorks)
-        })
+        createButton(categoryElement.name, divFilter);
     }
 }
 
