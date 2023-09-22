@@ -268,10 +268,12 @@ footer nav ul {
 	width: 100%;
 }
 
-.btnNavHeader.active {
+/* .btnNavHeaderActive {
 	color:black;
 	font-weight: 600;
+} */
+
+.errorMessage {
+	color: red;
 }
-
-
 

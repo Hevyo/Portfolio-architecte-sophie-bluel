@@ -51,16 +51,45 @@ loginButton.addEventListener("click", function () {
 
     const footer = document.querySelector("footer")
     footer.classList.add("loginFooter")
+
+    loginForm.addEventListener("submit", async function (event){
+        event.preventDefault()
+        fetch ("http://localhost:5678/api/users/login" , {
+            method: "POST",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({
+                "email" : inputMail.value,
+                "password" : inputPassword.value
+            })
+        })
+        .then (response => response.json())
+        .then((data) => { console.log(data)
+            if (data.userId === 1) {
+                window.localStorage.setItem("token" , "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5NTM5MDc2NCwiZXhwIjoxNjk1NDc3MTY0fQ.4N2_E21jmwmwHUh41rLon0btX8qRqy6L7XJ5GHPIE_g" )
+                window.location.href = "index.html"
+            } else {
+                verifierEmail(inputMail)
+            }
+        })
+            
+        
+    
+    })
 })
 
-let btnNavHeader = document.querySelectorAll(".btnNavHeader")
+async function verifierEmail(inputMail) {
+	let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
+	if (emailRegExp.test(inputMail.value)) {
+		const errorMessage = document.createElement("p")
+        errorMessage.innerText = "Utilisateur inconnu"
+        errorMessage.classList.add("errorMessage")
+        loginSection.appendChild(errorMessage)
+	} else {
+		const errorMail = document.createElement("p")
+        errorMail.innerText = "E-mail non valide"
+        errorMail.classList.add("errorMessage")
+        loginSection.appendChild(errorMail)
+	}}
 
-btnNavHeader.addEventListener("click", function (event) {
-    btnNavHeaderClicked = event.target
-    btnNavHeader.forEach((btn) => {
-        btn.classList.remove('active');
-    });
-    btnNavHeaderClicked.classList.add("active")
-})
 
 
