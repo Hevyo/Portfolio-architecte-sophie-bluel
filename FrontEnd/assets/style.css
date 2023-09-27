@@ -261,19 +261,18 @@ footer nav ul {
 
 }
 
-.loginFooter {
+#loginFooter {
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	width: 100%;
 }
 
-/* .btnNavHeaderActive {
+.btnNavHeaderActive {
 	color:black;
 	font-weight: 600;
-} */
+}
 
 .errorMessage {
 	color: red;
 }
-
