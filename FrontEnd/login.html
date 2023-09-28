@@ -9,7 +9,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-    <script type="module" src="galery.js" defer></script>
+	<script src="https://kit.fontawesome.com/bd33f64fd6.js" crossorigin="anonymous"></script>
 	<script type="module" src="login.js" defer></script>
 	<script type="module" src="script.js" defer></script>
 </head>
@@ -18,15 +18,15 @@
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<li class="btnNavHeader">projets</li>
-			<li class="btnNavHeader">contact</li>
+			<li id="btnProjets" class="btnNavHeader">projets</li>
+			<li id="btnContact" class="btnNavHeader">contact</li>
 			<li id="login" class="btnNavHeader">login</li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			<li><i class="fa-brands fa-instagram fa-xl" style="color: #000000;"></i></li>
 		</ul>
 	</nav>
 </header>
 <main>
-	<section id="loginSection" class="hideLoginSection">
+	<section id="loginSection">
 		<h2>Log In</h2>
 		<form id="loginForm" action="http://localhost:5678/api/users/login" method="post">
 			<fieldset class="loginFieldset"><label for="mail">E-mail</label>

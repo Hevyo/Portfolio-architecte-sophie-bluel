@@ -9,19 +9,23 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://kit.fontawesome.com/bd33f64fd6.js" crossorigin="anonymous"></script>
 	<script type="module" src="galery.js" defer></script>
-	<script type="module" src="login.js" defer></script>
 	<script type="module" src="script.js" defer></script>
 </head>
 <body>
+	<aside id="editionMode" class="displayNone">
+		<i class="fa-regular fa-pen-to-square"></i>
+		<p>Mode édition</p>
+	</aside>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<li class="btnNavHeader">projets</li>
-			<li class="btnNavHeader">contact</li>
+			<li id="btnProjets" class="btnNavHeader">projets</li>
+			<li id="btnContact" class="btnNavHeader">contact</li>
 			<li id="login" class="btnNavHeader">login</li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			<li><i class="fa-brands fa-instagram fa-xl" style="color: #000000;"></i></li>
 		</ul>
 	</nav>
 </header>
@@ -34,11 +38,17 @@
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
-			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
+			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice).</p>
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="projectTitle">
+			<h2>Mes Projets</h2>
+			<button id="editionButton" class="displayNone">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<p>modifier</p>
+			</button>
+		</div>
 		<div class="filters">
 			<!-- filtres générés dynamiquement avec JS -->
 		</div>
