@@ -13,38 +13,46 @@
 	<script type="module" src="login.js" defer></script>
 	<script type="module" src="script.js" defer></script>
 </head>
-<body>
-<header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
-		<ul>
-			<li id="btnProjets" class="btnNavHeader">projets</li>
-			<li id="btnContact" class="btnNavHeader">contact</li>
-			<li id="login" class="btnNavHeader">login</li>
-			<li><i class="fa-brands fa-instagram fa-xl" style="color: #000000;"></i></li>
-		</ul>
-	</nav>
-</header>
-<main>
-	<section id="loginSection">
-		<h2>Log In</h2>
-		<form id="loginForm" action="http://localhost:5678/api/users/login" method="post">
-			<fieldset class="loginFieldset"><label for="mail">E-mail</label>
-				<input type="mail" name="mail" id="mail" required="">
-			</fieldset><fieldset class="loginFieldset"><label for="password">Mot de passe</label>
-				<input type="password" name="password" id="password" required="">
-			</fieldset><input type="submit" value="Se connecter">
-		</form>
-		<a href="">Mot de passe oublié</a>
-	</section>
-</main>
 
-<footer id="loginFooter">
-	<nav>
-		<ul>
-			<li>Mentions Légales</li>
-		</ul>
-	</nav>
-</footer>
+<body>
+
+	<div class="mainContainer">
+
+		<header>
+			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+			<nav>
+				<ul>
+					<li id="btnProjets" class="btnNavHeader">projets</li>
+					<li id="btnContact" class="btnNavHeader">contact</li>
+					<li id="login" class="btnNavHeaderActive">login</li>
+					<li><i class="fa-brands fa-instagram fa-xl" style="color: #000000;"></i></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<section id="loginSection">
+				<h2>Log In</h2>
+				<form id="loginForm" action="http://localhost:5678/api/users/login" method="post">
+					<fieldset class="loginFieldset"><label for="mail">E-mail</label>
+						<input type="mail" name="mail" id="mail" required="">
+					</fieldset><fieldset class="loginFieldset"><label for="password">Mot de passe</label>
+						<input type="password" name="password" id="password" required="">
+					</fieldset><input type="submit" value="Se connecter">
+				</form>
+				<a href="">Mot de passe oublié</a>
+			</section>
+		</main>
+
+	</div>
+
+	<footer id="loginFooter">
+		<nav>
+			<ul>
+				<li>Mentions Légales</li>
+			</ul>
+		</nav>
+	</footer>
+
 </body>
+
 </html>

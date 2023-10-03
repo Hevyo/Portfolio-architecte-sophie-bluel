@@ -4,6 +4,11 @@ mainTitle.addEventListener("click", function () {
     window.location.href = "index.html"
 })
 
+if (window.location.hash ) {
+    const btn = window.location.hash
+    document.querySelector("#btn" + btn.charAt(1).toUpperCase() + btn.slice(2)).classList.add("btnNavHeaderActive")
+}
+
 const btnNavHeader = document.querySelectorAll(".btnNavHeader")
 
 btnNavHeader.forEach((btn) => {
@@ -19,7 +24,7 @@ btnNavHeader.forEach((btn) => {
 const btnProjets = document.getElementById("btnProjets")
 
 btnProjets.addEventListener("click", function () {
-    window.location.href = "index.html#portfolio"
+    window.location.href = "index.html#projets"
 })
 
 const btnContact = document.getElementById("btnContact")
@@ -37,11 +42,9 @@ loginButton.addEventListener("click", function () {
 if (window.localStorage.getItem("token")) {
     const editionMode = document.getElementById("editionMode")
     editionMode.classList.remove("displayNone")
-    editionMode.classList.add("editionModeDisplayed")
 
     const editionButton = document.getElementById("editionButton")
     editionButton.classList.remove("displayNone")
-    editionButton.classList.add("buttonEdition")
 
     const projectTitle = document.querySelector(".projectTitle")
     projectTitle.classList.add("marginProjectTitle")
@@ -50,10 +53,8 @@ if (window.localStorage.getItem("token")) {
     filters.classList.add("displayNone")
 
     loginButton.innerText = "Logout"
+
     loginButton.addEventListener("click", function (){
         window.localStorage.removeItem("token")
-        editionMode.classList.remove("editionModeDisplayed")
-        editionMode.classList.add("displayNone")
-        loginButton.innerText = "Login"
     })
 }

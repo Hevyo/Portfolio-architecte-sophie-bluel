@@ -12,71 +12,98 @@
 	<script src="https://kit.fontawesome.com/bd33f64fd6.js" crossorigin="anonymous"></script>
 	<script type="module" src="galery.js" defer></script>
 	<script type="module" src="script.js" defer></script>
+	<script type="module" src="app.js" defer></script>
 </head>
+
 <body>
-	<aside id="editionMode" class="displayNone">
+
+	<!-- standard aria permet d'améliorer l'accessibilité -->
+	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="titleModal" style="display:none">
+		<div class="modalWrapper jsModalStop">
+			<button class="jsCloseModal"><i class="fa-solid fa-xmark"></i></button>
+			<h2 id="titleModal">Galerie photo</h2>
+			<div>
+
+			</div>
+			<button>Ajouter une photo</button>
+		</div>
+	</aside>
+
+	<aside id="editionMode" class="displayNone editionModeDisplayed">
 		<i class="fa-regular fa-pen-to-square"></i>
 		<p>Mode édition</p>
 	</aside>
-<header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
-		<ul>
-			<li id="btnProjets" class="btnNavHeader">projets</li>
-			<li id="btnContact" class="btnNavHeader">contact</li>
-			<li id="login" class="btnNavHeader">login</li>
-			<li><i class="fa-brands fa-instagram fa-xl" style="color: #000000;"></i></li>
-		</ul>
-	</nav>
-</header>
-<main>
-	<section id="introduction">
-		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
-		</figure>
-		<article>
-			<h2>Designer d'espace</h2>
-			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
-			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
-			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice).</p>
-		</article>
-	</section>
-	<section id="portfolio">
-		<div class="projectTitle">
-			<h2>Mes Projets</h2>
-			<button id="editionButton" class="displayNone">
-				<i class="fa-regular fa-pen-to-square"></i>
-				<p>modifier</p>
-			</button>
-		</div>
-		<div class="filters">
-			<!-- filtres générés dynamiquement avec JS -->
-		</div>
-		<div class="gallery">
-			<!-- Gallerie générée dynamiquement avec JS -->
-		</div>
-	</section>
-	<section id="contact">
-		<h2>Contact</h2>
-		<p>Vous avez un projet ? Discutons-en !</p>
-		<form action="#" method="post">
-			<label for="name">Nom</label>
-			<input type="text" name="name" id="name">
-			<label for="email">Email</label>
-			<input type="email" name="email" id="email">
-			<label for="message">Message</label>
-			<textarea name="message" id="message" cols="30" rows="10"></textarea>
-			<input type="submit" value="Envoyer">
-		</form>
-	</section>
-</main>
 
-<footer>
-	<nav>
-		<ul>
-			<li>Mentions Légales</li>
-		</ul>
-	</nav>
-</footer>
+	<div class="mainContainer">
+
+		<header>
+			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+			<nav>
+				<ul>
+					<li id="btnProjets" class="btnNavHeader">projets</li>
+					<li id="btnContact" class="btnNavHeader">contact</li>
+					<li id="login" class="btnNavHeader">login</li>
+					<li><i class="fa-brands fa-instagram fa-xl" style="color: #000000;"></i></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main>
+
+			<section id="introduction">
+				<figure>
+					<img src="./assets/images/sophie-bluel.png" alt="">
+				</figure>
+				<article>
+					<h2>Designer d'espace</h2>
+					<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
+					<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+					<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice).</p>
+				</article>
+			</section>
+
+			<section id="projets">
+				<div class="projectTitle">
+					<h2>Mes Projets</h2>
+					<a href="#modal" id="editionButton" class="displayNone jsModal buttonEdition">
+						<i class="fa-regular fa-pen-to-square"></i>
+						<p>modifier</p>
+					</a>
+				</div>
+				<div class="filters">
+					<!-- filtres générés dynamiquement avec JS -->
+				</div>
+				<div class="gallery">
+					<!-- Gallerie générée dynamiquement avec JS -->
+				</div>
+			</section>
+
+			<section id="contact">
+				<h2>Contact</h2>
+				<p>Vous avez un projet ? Discutons-en !</p>
+				<form action="#" method="post">
+					<label for="name">Nom</label>
+					<input type="text" name="name" id="name">
+					<label for="email">Email</label>
+					<input type="email" name="email" id="email">
+					<label for="message">Message</label>
+					<textarea name="message" id="message" cols="30" rows="10"></textarea>
+					<input type="submit" value="Envoyer">
+				</form>
+			</section>
+			
+		</main>
+
+	</div>
+
+	<footer>
+		<nav>
+			<ul>
+				<li>Mentions Légales</li>
+			</ul>
+		</nav>
+	</footer>
+
 </body>
+
 </html>
