@@ -20,12 +20,12 @@
 	<!-- standard aria permet d'améliorer l'accessibilité -->
 	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="titleModal" style="display:none">
 		<div class="modalWrapper jsModalStop">
-			<button class="jsCloseModal"><i class="fa-solid fa-xmark"></i></button>
+			<button class="jsCloseModal"><i class="fa-solid fa-xmark fa-xl"></i></button>
 			<h2 id="titleModal">Galerie photo</h2>
-			<div>
-
+			<div class="jsGallery modalGallery">
+			<!-- Gallerie générée dynamiquement avec JS -->
 			</div>
-			<button>Ajouter une photo</button>
+			<input type="submit" value="Ajouter une photo">
 		</div>
 	</aside>
 
@@ -73,7 +73,7 @@
 				<div class="filters">
 					<!-- filtres générés dynamiquement avec JS -->
 				</div>
-				<div class="gallery">
+				<div class="gallery jsGallery">
 					<!-- Gallerie générée dynamiquement avec JS -->
 				</div>
 			</section>

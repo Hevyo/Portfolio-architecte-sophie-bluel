@@ -125,8 +125,12 @@ li:hover {
 }
 
 #introduction p {
+	font-size: 14px;
 	margin-bottom: 1.5em;
-	padding-right: 13em;
+	padding-right: 8em;
+	line-height: 16.42px;
+	color: rgba(61, 61, 61, 1)
+	
 }
 
 .gallery {
@@ -344,8 +348,8 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0,0,0, 0.8);
-	animation : fadeIn .3s both
+	background: rgba(0,0,0, 0.3);
+	animation : fadeIn .3s both;
 }
 
 .modal[aria-hidden="true"] {
@@ -353,12 +357,18 @@ body {
 }
 
 .modalWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 	background-color: white;
 	max-width: calc(100vw - 20px);
 	max-height: calc(100vh - 20px);
 	overflow: auto;
-	width: 600px;
-	padding: 20px;
+	width: 630px;
+	height: 648px;
+	padding: 30px;
+	border-radius: 10px;
 }
 
 @keyframes fadeIn {
@@ -369,6 +379,65 @@ body {
 @keyframes fadeOut {
 	from { opacity: 1;}
 	to { opacity: 0; }
+}
+
+.modalGallery {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	margin: 0 6.5em 0 6.5em;
+	gap: 1em;
+	padding-bottom: 3em;
+	border-bottom: 1px solid rgba(179, 179, 179, 1);
+}
+
+.modalGallery img {
+	height: 102px;
+	width: 100%;
+	margin-bottom: 1em;
+}
+
+.modalWrapper h2 {
+	font-family: 'Work Sans';
+	color: black;
+	font-weight: 400;
+	font-size: 26px;
+	margin-bottom: 1em;
+}
+
+.modalWrapper .jsCloseModal {
+	margin-left: auto;
+	border: none;
+	background-color: white;
+	cursor: pointer;
+}
+
+.modalWrapper input {
+	width: 237px;
+	padding: 1em 0 1em 0;
+	margin: 1em auto
+}
+
+.modalWrapper figure {
+	position: relative;
+}
+
+figure .fa-solid {
+	color: white;
+	margin: 0;
+	width: 100%
+}
+
+figure button {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	padding: 2.5px 5px;
+	border-radius: 5px;
+	background-color: black;
+	border: none;
+	cursor: pointer;
 }
 
 /** Tools  **/
