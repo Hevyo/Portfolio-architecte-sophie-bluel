@@ -2,6 +2,8 @@ const works = await fetch("http://localhost:5678/api/works").then(works => works
 const category = await fetch ("http://localhost:5678/api/categories").then(category => category.json())
 const DEFAULT_CATEGORY = "Tous";
 
+console.log(works)
+
 function displayWorks(works) {
     for (let i=0; i < works.length; i++) {
 
@@ -10,24 +12,39 @@ function displayWorks(works) {
         console.log(galleries)
 
         galleries.forEach(div => { 
-        const workElement = document.createElement("figure")
-        div.appendChild(workElement)
+            const workElement = document.createElement("figure")
+            div.appendChild(workElement)
 
-        const imageElement = document.createElement("img")
-        imageElement.src = figure.imageUrl
-        workElement.appendChild(imageElement)
+            const imageElement = document.createElement("img")
+            imageElement.src = figure.imageUrl
+            workElement.appendChild(imageElement)
 
-        if (div.classList.contains("gallery")) {
-            const captionElement = document.createElement("figcaption")
-            captionElement.innerText = figure.title
-            workElement.appendChild(captionElement)
-        } else {
-            const deleteButton = document.createElement("button")
-            const trash = document.createElement("i")
-            trash.classList.add("fa-solid", "fa-trash-can", "fa-xs")
-            workElement.appendChild(deleteButton)
-            deleteButton.appendChild(trash)
-        }
+            if (div.classList.contains("gallery")) {
+                const captionElement = document.createElement("figcaption")
+                captionElement.innerText = figure.title
+                workElement.appendChild(captionElement)
+            } else {
+                const deleteButton = document.createElement("button")
+                deleteButton.classList.add("jsDeleteButton")
+                const trash = document.createElement("i")
+                trash.classList.add("fa-solid", "fa-trash-can", "fa-xs")
+                workElement.appendChild(deleteButton)
+                deleteButton.appendChild(trash)
+
+                deleteButton.addEventListener("click", function() {
+                    const workId = works[i].id
+                    let token = window.localStorage.getItem("token")
+                    console.log(workId)
+                    fetch (`http://localhost:5678/api/works/${workId}`, {
+                        method: "DELETE",
+                        headers: {
+                            accept: "*/*",
+                            Authorization:`Bearer ${token}`
+                        }
+                    })
+                    workElement.remove()
+                })
+            }
         })
     }
 }
