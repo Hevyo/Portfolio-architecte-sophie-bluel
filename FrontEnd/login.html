@@ -33,11 +33,15 @@
 			<section id="loginSection">
 				<h2>Log In</h2>
 				<form id="loginForm" action="http://localhost:5678/api/users/login" method="post">
-					<fieldset class="loginFieldset"><label for="mail">E-mail</label>
+					<fieldset class="loginFieldset">
+						<label for="mail">E-mail</label>
 						<input type="mail" name="mail" id="mail" required="">
-					</fieldset><fieldset class="loginFieldset"><label for="password">Mot de passe</label>
+					</fieldset>
+					<fieldset class="loginFieldset">
+						<label for="password">Mot de passe</label>
 						<input type="password" name="password" id="password" required="">
-					</fieldset><input type="submit" value="Se connecter">
+					</fieldset>
+					<input type="submit" value="Se connecter">
 				</form>
 				<a href="">Mot de passe oublié</a>
 			</section>

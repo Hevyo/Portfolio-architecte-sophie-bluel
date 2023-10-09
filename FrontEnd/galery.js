@@ -2,17 +2,21 @@ const works = await fetch("http://localhost:5678/api/works").then(works => works
 const category = await fetch ("http://localhost:5678/api/categories").then(category => category.json())
 const DEFAULT_CATEGORY = "Tous";
 
-console.log(works)
-
 function displayWorks(works) {
+
+    const workElements = []
+    let imgElement = []
+
     for (let i=0; i < works.length; i++) {
 
         const figure = works[i]
         let galleries = document.querySelectorAll(".jsGallery")
-        console.log(galleries)
+
+        imgElement = []
 
         galleries.forEach(div => { 
             const workElement = document.createElement("figure")
+            imgElement.push(workElement)
             div.appendChild(workElement)
 
             const imageElement = document.createElement("img")
@@ -34,18 +38,22 @@ function displayWorks(works) {
                 deleteButton.addEventListener("click", function() {
                     const workId = works[i].id
                     let token = window.localStorage.getItem("token")
-                    console.log(workId)
                     fetch (`http://localhost:5678/api/works/${workId}`, {
                         method: "DELETE",
                         headers: {
                             accept: "*/*",
                             Authorization:`Bearer ${token}`
                         }
-                    })
-                    workElement.remove()
+                    }).then(() => {
+                        workElements[i][0].remove()
+                        workElements[i][1].remove()
+                    }) 
+                    console.log(workElements)
+                    console.log(i)
                 })
             }
         })
+        workElements.push(imgElement)
     }
 }
 
@@ -83,7 +91,6 @@ function displayFilters(category) {
     for (let i=0; i < category.length; i++) {
 
         const categoryElement = category[i]
-        console.log(category[i])
 
         createButton(categoryElement.name, divFilter);
     }

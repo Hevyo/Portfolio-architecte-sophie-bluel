@@ -1,3 +1,5 @@
+const category = await fetch ("http://localhost:5678/api/categories").then(category => category.json())
+
 let modal = null
 const focusableSelector = "input, button"
 let focusables = []
@@ -5,10 +7,9 @@ let previouslyFocusedElement = null
 
 const openModal = function (e) {
     e.preventDefault()
-    modal = document.querySelector(e.target.getAttribute("href"))
+    modal = document.querySelector(e.currentTarget.getAttribute("href"))
     focusables = Array.from(modal.querySelectorAll(focusableSelector))
     previouslyFocusedElement = document.querySelector(":focus")
-    console.log(e.target)
     modal.style.display = null
     focusables[0].focus()
     modal.removeAttribute("aria-hidden")
@@ -54,9 +55,13 @@ const focusInModal = function(e) {
     focusables[index].focus()
 }
 
+// Non utilisé pour l'instant, en prévision de la création de plusieurs boutons faisant apparaitre la modale
+
 document.querySelectorAll(".jsModal").forEach(a => {
     a.addEventListener ("click" , openModal)
 })
+
+// Navigation au clavier dans la modale
 
 window.addEventListener("keydown", function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
@@ -67,4 +72,22 @@ window.addEventListener("keydown", function (e) {
     }
 })
 
+// Remplacement du contenu de la modale pour l'ajout de travaux
 
+const buttonAdWork = document.querySelector(".buttonAddWork")
+
+buttonAdWork.addEventListener("click", function () {
+    document.querySelector(".modalPageOne").style.display = "none"
+    document.querySelector(".modalPageTwo").style.display = null
+})
+
+
+// Création des options de catégorie pour la liste déroulante d'ajout de travaux
+
+const selectCategory = document.getElementById("category")
+
+for (let i=0; i < category.length; i++) {
+    let optionToSelect = document.createElement("option")
+    optionToSelect.value , optionToSelect.innerText = category[i].name
+    selectCategory.appendChild(optionToSelect)
+}
