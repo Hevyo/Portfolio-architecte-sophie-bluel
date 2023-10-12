@@ -376,6 +376,12 @@ body {
 	from { opacity: 1;}
 	to { opacity: 0; }
 }
+
+.modalWrapper .icon {
+	border: none;
+	background-color: white;
+	cursor: pointer;
+}
  
 /** Modal **/
 	/** page 1 **/
@@ -385,7 +391,11 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	min-height: 648px;
+	min-height: 100%;
+}
+
+.modalPageOne .icon {
+	margin-left: auto;
 }
 
 .modalGallery {
@@ -393,7 +403,7 @@ body {
 	flex-direction: row;
 	justify-content: flex-start;
 	flex-wrap: wrap;
-	margin: 0 6.5em 0 6.5em;
+	margin: 0 6.5em;
 	gap: 1em;
 	padding-bottom: 3em;
 	border-bottom: 1px solid rgba(179, 179, 179, 1);
@@ -413,17 +423,9 @@ body {
 	margin-bottom: 1em;
 }
 
-.modalWrapper .jsCloseModal {
-	margin-left: auto;
-	border: none;
-	background-color: white;
-	cursor: pointer;
-}
-
 .modalWrapper .buttonAddWork {
-	width: 237px;
-	padding: 1em 0 1em 0;
-	margin: 1em auto
+	width: 40%;
+	padding: 0.7em 0;
 }
 
 .modalWrapper figure {
@@ -445,6 +447,126 @@ figure button {
 	background-color: black;
 	border: none;
 	cursor: pointer;
+}
+
+/** Modal **/
+	/** page 2 **/
+
+.modalPageTwo {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
+.modalHeaderP2 {
+	display: flex;
+	justify-content: space-between;
+}
+
+.modalContainerP2 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0 5em
+}
+
+#titleModalP2 {
+	margin-top: 0.8em;
+}
+
+.modalContainerP2 form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+}
+
+.modalContainerP2 fieldset {
+	display: flex;
+	flex-direction: column;
+}
+
+.imgFieldset {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	background-color: rgba(232, 241, 246, 1);
+	padding: 1.5em;
+	gap: 0.5em;
+	position: relative;
+}
+
+.imgFieldset .fa-regular {
+	color: rgba(185, 197, 204, 1);
+	font-size: 5.5em;
+}
+
+.buttonIconImg {
+	border: none;
+	background-color: rgba(232, 241, 246, 1);
+	padding: 2em;
+	margin-top: 1em;
+}
+
+.buttonAddImg {
+	border: none;
+	background-color: rgba(185, 197, 204, 1);
+	width: 40%;
+	padding: 0.6em 0;
+	border-radius: 50px;
+	color: rgba(48, 102, 133, 1);
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.imgFieldset p {
+	color: rgba(68, 68, 68, 1);
+	font-size: 10px;
+}
+
+form #title, #category {
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	border: none;
+	border-right: white solid 1em;
+	background-color: white;
+	height: 51px;
+	padding-left: 1em
+}
+
+.categoryFieldset {
+	padding-bottom: 3em;
+	border-bottom: 1px solid rgba(179, 179, 179, 1);
+}
+
+.titleFieldset, .categoryFieldset {
+	gap: 1em
+}
+
+.titleFieldset, .categoryFieldset label {
+	color: rgba(61, 61, 61, 1);
+}
+
+.modalWrapper .buttonSubmitWork {
+	width: 50%;
+	padding: 0.7em 0;
+	margin: 0 auto;
+	margin-top: 1.5em
+}
+
+.buttonSubmitWork:disabled {
+	background-color: rgba(179, 179, 179, 1);
+	border: 1px solid rgba(179, 179, 179, 1)
+}
+
+#previewImage {
+	position: absolute;
+    height: 100%;
+	top: 0
+}
+
+.modalErrorMessage {
+	color: red;
+	margin-top: 1em;
 }
 
 /** Tools  **/
