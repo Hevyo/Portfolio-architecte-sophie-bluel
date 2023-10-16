@@ -1,3 +1,4 @@
+import {displayGallery} from "./galery.js"
 const category = await fetch ("http://localhost:5678/api/categories").then(category => category.json())
 
 let modal = null
@@ -97,7 +98,8 @@ const selectCategory = document.getElementById("category")
 
 for (let i=0; i < category.length; i++) {
     let optionToSelect = document.createElement("option")
-    optionToSelect.value , optionToSelect.innerText = category[i].name
+    optionToSelect.innerText = category[i].name
+    optionToSelect.value = category[i].id
     selectCategory.appendChild(optionToSelect)
 }
 
@@ -124,6 +126,7 @@ inputFile.addEventListener('change', function (e) {
         previewImage.style.display = "block"
         jsRedirectInputFile.style.visibility = "hidden"
         modalErrorMessage.style.display = "none"
+        validateForm()
     } else {
         inputFile.value = ""
         console.log(inputFile.value)
@@ -154,11 +157,12 @@ function validFileType(file) {
 const inputTitleWork = document.getElementById("title")
 const buttonSubmitWork = document.querySelector(".buttonSubmitWork")
 const workUploadForm = document.querySelector(".workUploadForm")
+const categorySelect = document.getElementById("category")
 
         // Fonction qui vérifie si les champs sont remplis et active le bouton d'envoi du formulaire
 
 function validateForm() {
-    let categorySelected = workUploadForm.category.options[workUploadForm.category.options.selectedIndex].value;
+    let categorySelected = categorySelect.options[categorySelect.options.selectedIndex].value
     console.log(inputFile.value + " " +  categorySelected + " " + inputTitleWork.value)
     if (inputFile.value && categorySelected && inputTitleWork.value !== "" ) {
         buttonSubmitWork.disabled = false
@@ -171,7 +175,7 @@ function validateForm() {
 
         // Utilisation de la fonction de vérification pour chaque élément input au changement
 
-const allInputsForm = [inputFile , workUploadForm , inputTitleWork]
+const allInputsForm = [categorySelect , inputTitleWork]
 console.log(allInputsForm)
 
 allInputsForm.forEach(input => {
@@ -188,5 +192,29 @@ function clearForm() {
     previewImage.style.display = "none"
     buttonSubmitWork.disabled = true
     jsRedirectInputFile.style.visibility = "visible"
+    modalErrorMessage.style.display = "none"
 }
+
+// Envoi de nouveaux travaux
+
+workUploadForm.addEventListener("submit", async function (event){
+    event.preventDefault()
+    let categorySelected = categorySelect.options[categorySelect.options.selectedIndex].value
+    console.log(categorySelected)
+    let token = window.localStorage.getItem("token")
+    const formData = new FormData()
+    formData.append("image", inputFile.files[0])
+    formData.append("title", inputTitleWork.value)
+    formData.append("category", categorySelected)
+    fetch ("http://localhost:5678/api/works" , {
+        method: "POST",
+        headers: {Authorization:`Bearer ${token}`},
+        body: formData
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        displayGallery(data)
+        document.querySelector(".jsCloseModal").click()
+    })
+})
 

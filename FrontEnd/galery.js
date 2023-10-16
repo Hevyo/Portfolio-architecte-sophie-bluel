@@ -2,59 +2,65 @@ const works = await fetch("http://localhost:5678/api/works").then(works => works
 const category = await fetch ("http://localhost:5678/api/categories").then(category => category.json())
 const DEFAULT_CATEGORY = "Tous";
 
+const workElements = []
+let imgElement = []
+
 function displayWorks(works) {
-
-    const workElements = []
-    let imgElement = []
-
     for (let i=0; i < works.length; i++) {
 
         const figure = works[i]
-        let galleries = document.querySelectorAll(".jsGallery")
-
-        imgElement = []
-
-        galleries.forEach(div => { 
-            const workElement = document.createElement("figure")
-            imgElement.push(workElement)
-            div.appendChild(workElement)
-
-            const imageElement = document.createElement("img")
-            imageElement.src = figure.imageUrl
-            workElement.appendChild(imageElement)
-
-            if (div.classList.contains("gallery")) {
-                const captionElement = document.createElement("figcaption")
-                captionElement.innerText = figure.title
-                workElement.appendChild(captionElement)
-            } else {
-                const deleteButton = document.createElement("button")
-                deleteButton.classList.add("jsDeleteButton")
-                const trash = document.createElement("i")
-                trash.classList.add("fa-solid", "fa-trash-can", "fa-xs")
-                workElement.appendChild(deleteButton)
-                deleteButton.appendChild(trash)
-
-                deleteButton.addEventListener("click", function() {
-                    const workId = works[i].id
-                    let token = window.localStorage.getItem("token")
-                    fetch (`http://localhost:5678/api/works/${workId}`, {
-                        method: "DELETE",
-                        headers: {
-                            accept: "*/*",
-                            Authorization:`Bearer ${token}`
-                        }
-                    }).then(() => {
-                        workElements[i][0].remove()
-                        workElements[i][1].remove()
-                    }) 
-                    console.log(workElements)
-                    console.log(i)
-                })
-            }
-        })
-        workElements.push(imgElement)
+        displayGallery(figure)
+        console.log(workElements)
     }
+}
+
+export function displayGallery(figure) {
+    let galleries = document.querySelectorAll(".jsGallery")
+
+    imgElement = []
+
+    galleries.forEach(div => { 
+        const workElement = document.createElement("figure")
+        imgElement.push(workElement)
+        div.appendChild(workElement)
+
+        const imageElement = document.createElement("img")
+        imageElement.src = figure.imageUrl
+        workElement.appendChild(imageElement)
+
+        if (div.classList.contains("gallery")) {
+            const captionElement = document.createElement("figcaption")
+            captionElement.innerText = figure.title
+            workElement.appendChild(captionElement)
+        } else {
+            const deleteButton = document.createElement("button")
+            deleteButton.classList.add("jsDeleteButton")
+            deleteButton.setAttribute("data-id", figure.id)
+            const trash = document.createElement("i")
+            trash.classList.add("fa-solid", "fa-trash-can", "fa-xs")
+            workElement.appendChild(deleteButton)
+            deleteButton.appendChild(trash)
+
+            deleteButton.addEventListener("click", function(event) {
+                const target = event.currentTarget
+                const workId = target.getAttribute("data-id")
+                console.log(workId)
+                let token = window.localStorage.getItem("token")
+                fetch (`http://localhost:5678/api/works/${workId}`, {
+                    method: "DELETE",
+                    headers: {
+                        accept: "*/*",
+                        Authorization:`Bearer ${token}`
+                    }
+                }).then(() => {
+                    workElements[workId][0].remove()
+                    workElements[workId][1].remove()
+                }) 
+                console.log(workElements)
+            })
+        }
+    })
+    workElements[figure.id] = imgElement
 }
 
 displayWorks(works)
