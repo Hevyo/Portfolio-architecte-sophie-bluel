@@ -10,16 +10,15 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="https://kit.fontawesome.com/bd33f64fd6.js" crossorigin="anonymous"></script>
-	<script type="module" src="galery.js" defer></script>
+	<script type="module" src="gallery.js" defer></script>
 	<script type="module" src="script.js" defer></script>
 	<script type="module" src="app.js" defer></script>
 </head>
 
 <body>
 
-	<!-- standard aria permet d'améliorer l'accessibilité -->
-	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="titleModal" style="display:none">
-
+	<!-- Code de la modale -->
+	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="titleModal titleModalP2" style="display:none">
 		<div class="modalWrapper jsModalStop">
 
 			<div class="modalPageOne" style="display:null">
@@ -54,7 +53,7 @@
 							<label for="category">Catégorie</label>
 							<select name="category" id="category" required>
 								<option hidden selected></option>
-								<!-- options générés avec JS -->
+								<!-- options générées avec JS -->
 							</select>
 						</fieldset>
 						<input class="buttonSubmitWork" type="submit" value="Valider" disabled="true">
@@ -64,9 +63,9 @@
 			</div>
 
 		</div>
-
 	</aside>
-
+	
+	<!-- Bannière du mode édition -->
 	<aside id="editionMode" class="displayNone editionModeDisplayed">
 		<i class="fa-regular fa-pen-to-square"></i>
 		<p>Mode édition</p>

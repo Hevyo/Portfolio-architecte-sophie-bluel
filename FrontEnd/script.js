@@ -1,16 +1,13 @@
 const mainTitle = document.querySelector("h1")
 
+// Redirection en page d'accueil au clic sur le h1 "Sophie Bluel architecte d'intérieur"
 mainTitle.addEventListener("click", function () {
     window.location.href = "index.html"
 })
 
-if (window.location.hash ) {
-    const btn = window.location.hash
-    document.querySelector("#btn" + btn.charAt(1).toUpperCase() + btn.slice(2)).classList.add("btnNavHeaderActive")
-}
-
 const btnNavHeader = document.querySelectorAll(".btnNavHeader")
 
+// Permet de modifier l'aspect des liens de navigation lorsqu'ils sont sélectionnés et d'enlever la classe css aux autres
 btnNavHeader.forEach((btn) => {
     btn.addEventListener("click", function (event) {
         const btnNavHeaderClicked = event.target
@@ -21,6 +18,14 @@ btnNavHeader.forEach((btn) => {
     })
 })
 
+// Permet de modifier l'aspect des liens de navigation lorsqu'ils sont sélectionnés en cas de rechargement de page (passage de la page login à l'accueil)
+if (window.location.hash) {
+    const btn = window.location.hash
+    // Récupération du bouton, puis de l'initiale du hash actuel mise en majuscule, puis du reste du hash, et ajout d'une classe css à celui-ci
+    document.querySelector("#btn" + btn.charAt(1).toUpperCase() + btn.slice(2)).classList.add("btnNavHeaderActive")
+}
+
+// Redirections des liens de navigation au clic vers la bonne ancre/page
 const btnProjets = document.getElementById("btnProjets")
 
 btnProjets.addEventListener("click", function () {
@@ -39,6 +44,7 @@ loginButton.addEventListener("click", function () {
     window.location.href = "login.html"
 })
 
+// Affichage du mode édition si l'utilisateur est connecté
 if (window.localStorage.getItem("token")) {
     const editionMode = document.getElementById("editionMode")
     editionMode.classList.remove("displayNone")
@@ -52,6 +58,7 @@ if (window.localStorage.getItem("token")) {
     const filters = document.querySelector(".filters")
     filters.classList.add("displayNone")
 
+    // Transformation du bouton login en logout et supression du token au clic, et donc du mode édition
     loginButton.innerText = "Logout"
 
     loginButton.addEventListener("click", function (){

@@ -2,19 +2,14 @@ const works = await fetch("http://localhost:5678/api/works").then(works => works
 const category = await fetch ("http://localhost:5678/api/categories").then(category => category.json())
 const DEFAULT_CATEGORY = "Tous";
 
+// Création de tableaux servant à la fonction de suppression des travaux
 const workElements = []
 let imgElement = []
 
-function displayWorks(works) {
-    for (let i=0; i < works.length; i++) {
-
-        const figure = works[i]
-        displayGallery(figure)
-        console.log(workElements)
-    }
-}
-
+// Fonction permettant d'afficher les travaux et de les supprimer
 export function displayGallery(figure) {
+
+    // Récupère la galerie principale et la gallerie dans la modale servant à la suppression des travaux
     let galleries = document.querySelectorAll(".jsGallery")
 
     imgElement = []
@@ -25,13 +20,17 @@ export function displayGallery(figure) {
         div.appendChild(workElement)
 
         const imageElement = document.createElement("img")
+        // figure = work[i]
         imageElement.src = figure.imageUrl
         workElement.appendChild(imageElement)
 
+        // Création des légendes uniquement pour la gallerie principale
         if (div.classList.contains("gallery")) {
             const captionElement = document.createElement("figcaption")
             captionElement.innerText = figure.title
             workElement.appendChild(captionElement)
+
+        // Création des icones de poubelles et fonction de suppression des travaux pour la gallerie de la modale
         } else {
             const deleteButton = document.createElement("button")
             deleteButton.classList.add("jsDeleteButton")
@@ -44,7 +43,6 @@ export function displayGallery(figure) {
             deleteButton.addEventListener("click", function(event) {
                 const target = event.currentTarget
                 const workId = target.getAttribute("data-id")
-                console.log(workId)
                 let token = window.localStorage.getItem("token")
                 fetch (`http://localhost:5678/api/works/${workId}`, {
                     method: "DELETE",
@@ -56,51 +54,64 @@ export function displayGallery(figure) {
                     workElements[workId][0].remove()
                     workElements[workId][1].remove()
                 }) 
-                console.log(workElements)
             })
         }
     })
+    // ???
     workElements[figure.id] = imgElement
+}
+
+// Lancement de la fonction d'affichage pour chaque objet via l'api
+function displayWorks(works) {
+    for (let i=0; i < works.length; i++) {
+        const figure = works[i]
+        displayGallery(figure)
+    }
 }
 
 displayWorks(works)
 
+// Fonction qu créé des boutons servant à filtrer les travaux en fonction de leur catégorie associée
 function createButton(text, divFilter) {
     const buttonDefault = document.createElement("button");
     buttonDefault.innerText = text;
-    buttonDefault.className = "filterStyle";
-    divFilter.appendChild(buttonDefault);
+    buttonDefault.className = "filterStyle"
+    divFilter.appendChild(buttonDefault)
 
     buttonDefault.addEventListener("click", function (event) {
-        const btnClicked = event.target;
-        let filterWorks = works;
+        const btnClicked = event.target
+        let filterWorks = works
+        // Si le paramètre "text" de la fonction est autre que "tous", on créé un bouton ayant pour innertext le nom de la catégorie
         if (DEFAULT_CATEGORY !== text) {
             filterWorks = works.filter(function (works) {
                 return works.category.name === text
             })
         }
-
+        
+        // Utilisation de la fonction displayWorks pour afficher les travaux filtrés
         document.querySelector(".gallery").innerHTML = ""
-        displayWorks(filterWorks);
+        displayWorks(filterWorks)
+
+        // Ajoute une classe css différente quand un bouton est actif et supprime cette classe du bouton précédemment actif
         document.querySelectorAll('.filterStyle').forEach((btn) => {
-            btn.classList.remove('active');
+            btn.classList.remove('active')
         });
-        btnClicked.classList.add('active');
+        btnClicked.classList.add('active')
     });
 }
 
+// Création des boutons de filtres et affichages des travaux filtrés en appellant la fonction createButton pour chaque catégorie de travaux
 function displayFilters(category) {
 
     const divFilter =  document.querySelector(".filters")
+    // Premier appel pour le bouton par défaut "tous"
     createButton(DEFAULT_CATEGORY, divFilter);
     
+    // Appels pour chaque catégorie de travaux
     for (let i=0; i < category.length; i++) {
-
         const categoryElement = category[i]
-
         createButton(categoryElement.name, divFilter);
     }
 }
 
 displayFilters(category)
-
