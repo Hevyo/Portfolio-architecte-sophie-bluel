@@ -56,6 +56,8 @@ const stopPropagation = function (e) {
     e.stopPropagation()
 }
 
+// Permet de garder le focus dans la modale
+
 const focusInModal = function(e) {
     e.preventDefault()
     let index = focusables.findIndex(f => f === modal.querySelector(":focus"))
@@ -80,9 +82,10 @@ window.addEventListener("keydown", function (e) {
         closeModal(e)
     }
     if (e.key === "Tab" && modal !== null) {
-        focusInModal(e)
-    }
-})
+            focusInModal(e)
+        }
+    })
+
 
 // Ouverture de la modale au clic sur le lien, forEach non utilisé pour l'instant (en prévision de la création de plusieurs boutons faisant apparaitre la modale)
 
@@ -144,7 +147,6 @@ inputFile.addEventListener('change', function (e) {
     // Sinon, réinitialisation de l'inputFile et apparition du message d'erreur correspondant
     } else {
         inputFile.value = ""
-        // ????
         if (modalErrorMessage.style.display = "none") {
             modalErrorMessage.style.display = null
             modalErrorMessage.innerText = "Type de fichier invalide"
@@ -153,7 +155,6 @@ inputFile.addEventListener('change', function (e) {
 })
 
 // Vérification de l'extension de l'image uploadée
-        // Vérification du poids ??
 
 const fileTypes = ["image/jpg" , "image/png"]
 

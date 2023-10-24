@@ -7,9 +7,10 @@ const workElements = []
 let imgElement = []
 
 // Fonction permettant d'afficher les travaux et de les supprimer
+// figure = work[i] pour les galeries || figure = filterWorks pour les filtres || figure = data pour l'envoi de nouveaux travaux
 export function displayGallery(figure) {
 
-    // Récupère la galerie principale et la gallerie dans la modale servant à la suppression des travaux
+    // Récupère la galerie principale et la galerie dans la modale servant à la suppression des travaux
     let galleries = document.querySelectorAll(".jsGallery")
 
     imgElement = []
@@ -20,11 +21,10 @@ export function displayGallery(figure) {
         div.appendChild(workElement)
 
         const imageElement = document.createElement("img")
-        // figure = work[i]
         imageElement.src = figure.imageUrl
         workElement.appendChild(imageElement)
 
-        // Création des légendes uniquement pour la gallerie principale
+        // Création des légendes uniquement pour la galerie principale
         if (div.classList.contains("gallery")) {
             const captionElement = document.createElement("figcaption")
             captionElement.innerText = figure.title
@@ -57,7 +57,7 @@ export function displayGallery(figure) {
             })
         }
     })
-    // ???
+    // On ajoute le tableau imgElement des deux figures relatives à chaque galeries dans le tableau worksElements, positionnés en fonction de leur id
     workElements[figure.id] = imgElement
 }
 
@@ -81,7 +81,7 @@ function createButton(text, divFilter) {
     buttonDefault.addEventListener("click", function (event) {
         const btnClicked = event.target
         let filterWorks = works
-        // Si le paramètre "text" de la fonction est autre que "tous", on créé un bouton ayant pour innertext le nom de la catégorie
+        // Si le paramètre "text" de la fonction est autre que "tous", on filtre les travaux en récupérant tous ceux dont le nom de catégorie lui est égal
         if (DEFAULT_CATEGORY !== text) {
             filterWorks = works.filter(function (works) {
                 return works.category.name === text
@@ -100,7 +100,7 @@ function createButton(text, divFilter) {
     });
 }
 
-// Création des boutons de filtres et affichages des travaux filtrés en appellant la fonction createButton pour chaque catégorie de travaux
+// Affichage des boutons de filtre et des travaux filtrés en appellant la fonction createButton pour chaque catégorie de travaux
 function displayFilters(category) {
 
     const divFilter =  document.querySelector(".filters")
