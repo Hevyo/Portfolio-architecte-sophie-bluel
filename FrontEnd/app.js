@@ -2,23 +2,33 @@ import {displayGallery} from "./gallery.js"
 const category = await fetch ("http://localhost:5678/api/categories").then(category => category.json())
 
 let modal = null
-const focusableSelector = "input, button"
+const focusableSelector = "input, button, select"
 let focusables = []
 let previouslyFocusedElement = null
+
+// Récupère uniquement les éléments visibles dans la modale
+function isVisible(e) {
+    return e.offsetWidth > 0 || e.offsetHeight > 0
+}
+
+// Créé un tableau des éléments focusables en filtrant les éléments visibles de la modale
+function initFocusables() {
+    focusables = Array.from(modal.querySelectorAll(focusableSelector)).filter((item) => {
+        return isVisible(item)
+        });
+    // Débute le focus clavier sur le premier élément focusable
+    focusables[0].focus()
+}
 
 // Fonction qui affiche la modale et créé ses différentes fonctionalités 
 
 const openModal = function (e) {
     e.preventDefault()
     modal = document.querySelector(e.currentTarget.getAttribute("href"))
-    // Création d'un tableau des éléments focusables au clavier
-    focusables = Array.from(modal.querySelectorAll(focusableSelector))
     // Enregistre le focus sur le dernier élément sélectionné avant l'ouverture de la modale
     previouslyFocusedElement = document.querySelector(":focus")
     // Affichage de la modale
     modal.style.display = null
-    // Débute le focus clavier sur le premier élément focusable
-    focusables[0].focus()
     modal.removeAttribute("aria-hidden")
     modal.setAttribute("aria-modal", "true")
     // Fermeture de la modale au clic à l'extérieur de la boite
@@ -27,6 +37,7 @@ const openModal = function (e) {
     modal.querySelector(".jsModalStop").addEventListener("click", stopPropagation)
     // Fermeture de la modale au clic sur les croix des différentes pages
     modal.querySelectorAll(".jsCloseModal").forEach (x => { x.addEventListener("click", closeModal)})
+    initFocusables()
 }
 
 // Fonction qui ferme la modale
@@ -61,10 +72,21 @@ const stopPropagation = function (e) {
 const focusInModal = function(e) {
     e.preventDefault()
     let index = focusables.findIndex(f => f === modal.querySelector(":focus"))
+    index = nextFocusIndex(index, e)
+    // Evite le focus sur l'élément désactivé
+    if (focusables[index].disabled) {
+        index = nextFocusIndex(index, e)
+    }
+    focusables[index].focus()
+}
+
+// Détermine le prochain index sur lequel mettre le focus
+
+function nextFocusIndex(index, e) {
     if (e.shiftKey === true) {
         index--
     } else {
-    index++
+        index++
     }
     if (index >= focusables.length) {
         index = 0
@@ -72,7 +94,7 @@ const focusInModal = function(e) {
     if ( index <0 ) {
         index = focusables.length -1
     }
-    focusables[index].focus()
+    return index
 }
 
 // Navigation au clavier dans la modale
@@ -100,6 +122,7 @@ const buttonAdWork = document.querySelector(".buttonAddWork")
 buttonAdWork.addEventListener("click", function () {
     document.querySelector(".modalPageOne").style.display = "none"
     document.querySelector(".modalPageTwo").style.display = null
+    initFocusables()
 })
 
 const backToPreviousPage = document.querySelector(".jsBackToPreviousPage")
@@ -108,6 +131,7 @@ backToPreviousPage.addEventListener("click", function () {
     document.querySelector(".modalPageOne").style.display = null
     document.querySelector(".modalPageTwo").style.display = "none"
     clearForm()
+    initFocusables()
 })
 
 
@@ -144,13 +168,13 @@ inputFile.addEventListener('change', function (e) {
         jsRedirectInputFile.style.visibility = "hidden"
         modalErrorMessage.style.display = "none"
         validateForm()
+        const index = focusables.findIndex(f => f === modal.querySelector(":focus")) -1
+        focusables.splice(index, 1) 
     // Sinon, réinitialisation de l'inputFile et apparition du message d'erreur correspondant
     } else {
         inputFile.value = ""
-        if (modalErrorMessage.style.display = "none") {
-            modalErrorMessage.style.display = null
-            modalErrorMessage.innerText = "Type de fichier invalide"
-        }
+        modalErrorMessage.style.display = null
+        modalErrorMessage.innerText = "Type de fichier invalide"
     }
 })
 

@@ -6,7 +6,7 @@ const DEFAULT_CATEGORY = "Tous";
 const workElements = []
 let imgElement = []
 
-// Fonction permettant d'afficher les travaux et de les supprimer
+// Fonction qui créé les travaux dans le DOM et permet de les supprimer
 // figure = work[i] pour les galeries || figure = filterWorks pour les filtres || figure = data pour l'envoi de nouveaux travaux
 export function displayGallery(figure) {
 

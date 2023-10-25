@@ -40,7 +40,7 @@
 					<form class="workUploadForm" action="http://localhost:5678/api/works" method="post">
 						<fieldset class="imgFieldset">
 							<img id="previewImage" src="#" style="display:none"/>
-							<button class="buttonIconImg"><i class="fa-regular fa-image fa-2xl"></i></button>
+							<div class="buttonIconImg"><i class="fa-regular fa-image fa-2xl"></i></div>
 							<input class="jsInputFile" type="file" id="img" name="img" accept="image/png, image/jpg" required style="display:none">
 							<button class="jsRedirectInputFile buttonAddImg" style="visibility:visible">+ Ajouter photo</button>
 							<p>jpg, png : 4mo max</p>
@@ -56,7 +56,7 @@
 								<!-- options générées avec JS -->
 							</select>
 						</fieldset>
-						<input class="buttonSubmitWork" type="submit" value="Valider" disabled="true">
+						<input class="buttonSubmitWork" type="submit" value="Valider" disabled="true" tabindex="-1">
 					</form>
 					<p class="modalErrorMessage" style="display:none"></p>
 				</div>
